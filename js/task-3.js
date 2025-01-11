@@ -1,12 +1,33 @@
-function getElementWidth(content, padding, border) {
-  const contentWidth = parseFloat(content);
-  const paddingWidth = parseFloat(padding);
-  const borderWidth = parseFloat(border);
-  const totalWidth = contentWidth + 2 * paddingWidth + 2 * borderWidth;
-  return totalWidth;
+class StringBuilder {
+  #value; // Оголошення приватної властивості
+
+  constructor(initialValue) {
+    this.#value = initialValue; // Ініціалізація приватної властивості
+  }
+
+  getValue() {
+    return this.#value; // Повернення значення приватної властивості
+  }
+
+  padEnd(str) {
+    this.#value += str; // Додавання рядка до кінця
+  }
+
+  padStart(str) {
+    this.#value = str + this.#value; // Додавання рядка на початок
+  }
+
+  padBoth(str) {
+    this.#value = str + this.#value + str; // Додавання рядка на початок і кінець
+  }
 }
 
-// Перевірка коректності роботи
-console.log(getElementWidth("50px", "8px", "4px")); // 74
-console.log(getElementWidth("60px", "12px", "8.5px")); // 101
-console.log(getElementWidth("200px", "0px", "0px")); // 200
+// Код для перевірки
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^="
